@@ -1,0 +1,49 @@
+{
+  "name": "delf-oral",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "French oral practice: record an answer, transcribe it, and compare it with a stronger version.",
+  "main": "electron/main.cjs",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "env -u ELECTRON_RUN_AS_NODE electron .",
+    "server": "node server/main.js",
+    "dev": "node --watch server/main.js",
+    "test": "node --test",
+    "probe": "node scripts/probe.js",
+    "dist": "electron-builder --mac dir"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "multer": "^1.4.5-lts.2"
+  },
+  "devDependencies": {
+    "electron": "^33.4.11",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.avoixhaute.oral",
+    "productName": "A voix haute",
+    "mac": {
+      "category": "public.app-category.education",
+      "identity": null,
+      "icon": "build/icon.png",
+      "extendInfo": {
+        "NSMicrophoneUsageDescription": "À voix haute a besoin du micro pour enregistrer votre oral."
+      }
+    },
+    "files": [
+      "electron/**",
+      "server/**",
+      "shared/**",
+      "public/**",
+      "package.json"
+    ],
+    "extraResources": [
+      ".env"
+    ]
+  }
+}

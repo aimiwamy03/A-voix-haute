@@ -1,0 +1,17 @@
+export const MIN_WAV_BYTES = 44 + 3200;
+export const AUTO_STOP_MS = 115_000;
+export const WARN_MS = 105_000;
+export const DEBATE_STOP_MS = 50_000;
+export const DEBATE_WARN_MS = 40_000;
+export const DEBATE_BUDGET_MS = 4 * 60 * 1000;
+export const DEBATE_MIN_TURNS = 3;
+export const DEBATE_MAX_TURNS = 3;
+export const DEBATE_ARM_MS = 1_600;
+export const SAMPLE_RATE = 16000;
+export const MAX_UPLOAD_BYTES = 8 * 1024 * 1024;
+export const STT_PROMPT_CAP = 4096;
+export const KEYTERMS_BYTE_CAP = 2048;
+export const KEYTERMS_COUNT_CAP = 100;
+export const LLM_INSTRUCTION_CAP = 2048;
+export const UPSTREAM_TIMEOUT_MS = 90_000;
+export const LOW_CONFIDENCE = 0.6;

@@ -1,0 +1,98 @@
+/* Réglages dialog (settings.js). Uses the tokens from styles.css. */
+body { background: var(--silk-bg, var(--bg)); }
+
+.settings {
+  width: min(440px, calc(100% - 24px));
+  max-height: calc(100dvh - 24px);
+  overflow-y: auto;
+  margin: auto;
+  padding: 18px 20px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: rgba(22, 22, 24, 0.94);
+  color: var(--ink);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
+  -webkit-backdrop-filter: var(--blur);
+  backdrop-filter: var(--blur);
+}
+.settings::backdrop { background: rgba(0, 0, 0, 0.35); }
+.settings h2 { margin: 0 0 4px; font-family: var(--display); font-size: 22px; font-weight: 600; letter-spacing: -0.28px; line-height: 1.14; }
+.settings-lead { margin: 0 0 14px; color: var(--muted); font-size: 13px; letter-spacing: -0.08px; }
+.settings-section { margin: 0 0 16px; }
+.settings-section .kicker { margin: 0 0 8px; }
+.settings-field-label { margin: 0 0 2px; font-size: 14px; font-weight: 600; letter-spacing: -0.224px; }
+.settings-section > .pref-hint { margin: 0 0 8px; }
+.settings-segments { margin-bottom: 12px; }
+.settings .segment { padding: 6px 6px; font-size: 12px; }
+.pref-list {
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--inset);
+  padding: 0 12px;
+}
+.pref-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.pref-row + .pref-row { border-top: 1px solid var(--line-soft); }
+.pref-row:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; border-radius: 6px; }
+.pref-copy { display: grid; gap: 2px; min-width: 0; }
+.pref-label { font-size: 14px; font-weight: 500; letter-spacing: -0.224px; }
+.pref-hint { color: var(--faint); font-size: 12px; letter-spacing: -0.08px; line-height: 1.35; }
+.switch {
+  flex: none;
+  width: 38px;
+  height: 22px;
+  margin-top: 1px;
+  border-radius: var(--pill);
+  background: rgba(255, 255, 255, 0.16);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35);
+  transition: background 0.16s ease;
+}
+.switch::after {
+  content: "";
+  display: block;
+  width: 18px;
+  height: 18px;
+  margin: 2px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  transition: transform 0.16s ease;
+}
+.pref-row[aria-checked="true"] .switch { background: var(--ok); }
+.pref-row[aria-checked="true"] .switch::after { transform: translateX(16px); }
+.swatches { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.swatch {
+  display: grid;
+  gap: 4px;
+  padding: 5px 5px 6px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: transparent;
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: -0.08px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s ease, transform 0.1s ease;
+}
+.swatch:hover { border-color: rgba(255, 255, 255, 0.3); color: var(--ink); }
+.swatch:active { transform: scale(0.97); }
+.swatch:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.swatch[aria-checked="true"] { border: 2px solid var(--accent); padding: 4px 4px 5px; color: var(--ink); font-weight: 600; }
+.swatch-chip { display: block; height: 36px; border-radius: var(--r-sm); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08); }
+.settings .btn.block { margin-top: 4px; padding: 8px 16px; font-size: 15px; }
+
+@media (max-width: 480px) {
+  .swatches { grid-template-columns: repeat(4, 1fr); }
+}

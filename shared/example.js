@@ -1,0 +1,97 @@
+const text = 'Euh moi je pense que le télétravail c\'est bien pour le temps mais les collègues ils se parlent moins. J\'ai allé dans une banque à Paris et les jeunes étaient isolés. Il faut que les entreprises font revenir les gens deux jours. En conclusion le lien social est important.';
+
+export const EXAMPLE = {
+  example: true,
+  title: 'Le télétravail a-t-il distendu le lien entre collègues ?',
+  question: 'Vous dites que deux jours au bureau suffisent : que répondez-vous à ceux qui apprennent le métier en observant leurs collègues ?',
+  monologue: {
+    text,
+    stronger: 'Je pense que le télétravail fait gagner du temps, mais les collègues se parlent moins. Je suis allé dans une banque à Paris, où les jeunes recrues étaient isolées. Il faut que les entreprises fassent revenir les équipes deux jours par semaine. En conclusion, le lien social reste important.',
+    words: [
+      { text: 'Euh', confidence: 0.88 },
+      { text: 'moi', confidence: 0.91 },
+      { text: 'je', confidence: 0.97 },
+      { text: 'pense', confidence: 0.95 },
+      { text: 'que', confidence: 0.96 },
+      { text: 'le', confidence: 0.98 },
+      { text: 'télétravail', confidence: 0.93 },
+      { text: 'c\'est', confidence: 0.9 },
+      { text: 'bien', confidence: 0.92 },
+      { text: 'pour', confidence: 0.94 },
+      { text: 'le', confidence: 0.97 },
+      { text: 'temps', confidence: 0.9 },
+      { text: 'mais', confidence: 0.95 },
+      { text: 'les', confidence: 0.97 },
+      { text: 'collègues', confidence: 0.86 },
+      { text: 'ils', confidence: 0.91 },
+      { text: 'se', confidence: 0.9 },
+      { text: 'parlent', confidence: 0.89 },
+      { text: 'moins.', confidence: 0.84 },
+      { text: 'J\'ai', confidence: 0.92 },
+      { text: 'allé', confidence: 0.42 },
+      { text: 'dans', confidence: 0.97 },
+      { text: 'une', confidence: 0.96 },
+      { text: 'banque', confidence: 0.9 },
+      { text: 'à', confidence: 0.95 },
+      { text: 'Paris', confidence: 0.93 },
+    ],
+    sessionId: 'exemple',
+  },
+  reply: {
+    text: 'Ben oui mais en fait si on est là deux jours on voit les autres. Genre c\'est assez pour apprendre. Les managers ils peuvent organiser des réunions ces jours-là.',
+    stronger: 'Deux jours sur place permettent déjà d\'observer les collègues. C\'est assez pour apprendre le métier à leur contact. Les managers peuvent organiser des réunions ces jours-là.',
+    words: [],
+    sessionId: 'exemple-2',
+  },
+  exchanges: [
+    {
+      question: 'Vous dites que deux jours au bureau suffisent : que répondez-vous à ceux qui apprennent le métier en observant leurs collègues ?',
+      move: 'objection',
+      continue: true,
+      addressed: true,
+      reply: {
+        text: 'Ben oui mais en fait si on est là deux jours on voit les autres. Genre c\'est assez pour apprendre. Les managers ils peuvent organiser des réunions ces jours-là.',
+        stronger: 'Deux jours sur place permettent déjà d\'observer les collègues. C\'est assez pour apprendre le métier à leur contact. Les managers peuvent organiser des réunions ces jours-là.',
+        words: [],
+        sessionId: 'exemple-2',
+      },
+    },
+    {
+      question: 'Cet exemple vient d\'une seule banque, à Paris. Diriez-vous la même chose d\'une petite équipe ?',
+      move: 'cas_limite',
+      continue: false,
+      addressed: false,
+      reply: {
+        text: 'Euh je sais pas trop pour les petites boîtes. Mais le lien social c\'est quand même important partout.',
+        stronger: 'Je ne connais pas assez les petites entreprises pour l\'affirmer. Le lien social reste important, mais il ne se construit pas de la même façon.',
+        words: [],
+        sessionId: 'exemple-3',
+      },
+    },
+  ],
+  feedback: {
+    structure: {
+      problematique: { ok: true, quote: 'les collègues ils se parlent moins' },
+      plan: { ok: false, quote: null },
+      exemples: { ok: true, quote: 'J\'ai allé dans une banque à Paris' },
+      conclusion: { ok: true, quote: 'En conclusion le lien social est important.' },
+    },
+    fixes: [
+      {
+        quote: 'J\'ai allé dans une banque à Paris',
+        probleme: 'Le passé composé de « aller » se construit avec être.',
+        mieux: 'Je suis allé dans une banque à Paris',
+      },
+      {
+        quote: 'Il faut que les entreprises font',
+        probleme: 'Après « il faut que », le verbe se met au subjonctif.',
+        mieux: 'Il faut que les entreprises fassent',
+      },
+      {
+        quote: 'les collègues ils se parlent moins',
+        probleme: 'Évitez le double sujet : un nom, puis « ils ».',
+        mieux: 'les collègues se parlent moins',
+      },
+    ],
+  },
+};

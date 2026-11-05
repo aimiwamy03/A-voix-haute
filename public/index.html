@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>À voix haute</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/settings.css">
+  <link rel="stylesheet" href="/account.css">
+</head>
+<body>
+  <canvas id="silk" class="silk" aria-hidden="true"></canvas>
+  <header class="top">
+    <div class="top-inner">
+      <button type="button" class="brand" id="brand">
+        <span class="brand-name">À voix haute</span>
+        <span class="brand-sub">Pratique de l'oral</span>
+      </button>
+      <ol class="steps" id="steps" aria-label="Étapes de l'oral">
+        <li id="step-sujet"><span class="step-num">1</span>Sujet</li>
+        <li id="step-parler"><span class="step-num">2</span>Parler</li>
+        <li id="step-retour"><span class="step-num">3</span>Retour</li>
+      </ol>
+      <nav class="sections" aria-label="Sections">
+        <button type="button" id="to-pratique" class="section-tab">Pratique</button>
+        <button type="button" id="to-historique" class="section-tab">Historique</button>
+        <button type="button" id="to-compte" class="section-tab">Compte</button>
+      </nav>
+      <div id="account" class="account" hidden>
+        <button type="button" id="account-button" class="avatar-btn" aria-label="Compte">
+          <span class="avatar" aria-hidden="true"></span>
+        </button>
+        <div id="account-menu" class="account-menu" role="menu" aria-label="Compte" hidden>
+          <button type="button" role="menuitem" id="open-compte" class="menu-profile">
+            <span class="avatar" aria-hidden="true"></span>
+            <span id="account-name" class="account-name"></span>
+          </button>
+          <hr class="menu-sep">
+          <button type="button" role="menuitem" id="open-settings" class="menu-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1.08-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1.08 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            Réglages
+          </button>
+          <hr class="menu-sep">
+          <button type="button" role="menuitem" id="logout" class="menu-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+            Déconnexion
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+  <p id="keys-banner" class="banner" hidden></p>
+  <main>
+    <section id="screen-login" hidden>
+      <div class="auth-shell">
+      <aside class="auth-welcome">
+        <p class="auth-brand">À voix haute</p>
+        <p class="kicker">Pratique de l'oral</p>
+        <h2 class="auth-welcome-title">Bienvenue sur À&nbsp;voix&nbsp;haute</h2>
+        <p class="auth-welcome-lead">Entraînez-vous à l'oral comme le jour de l'examen, puis voyez précisément quoi améliorer.</p>
+        <ol class="auth-steps">
+          <li><span class="step-num">1</span><div><strong>Sujet</strong><p>Choisissez un document et préparez-vous, montre en main.</p></div></li>
+          <li><span class="step-num">2</span><div><strong>Parler</strong><p>Présentez votre point de vue, puis répondez aux relances de l'examinateur.</p></div></li>
+          <li><span class="step-num">3</span><div><strong>Retour</strong><p>Comparez votre transcription à une version renforcée, avec trois corrections précises.</p></div></li>
+        </ol>
+      </aside>
+      <form id="auth-form" class="auth-card">
+        <h1 id="auth-title">Connexion</h1>
+        <p id="auth-lead" class="hint">Retrouvez les oraux enregistrés sur cet appareil.</p>
+        <button type="button" id="google-app" class="google-app" hidden>
+          <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
+            <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 8 3.1l5.7-5.7C34.2 6.1 29.4 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.2-.1-2.3-.4-3.5z"/>
+            <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 16 19 12 24 12c3.1 0 5.8 1.2 8 3.1l5.7-5.7C34.2 6.1 29.4 4 24 4 16.3 4 9.6 8.3 6.3 14.7z"/>
+            <path fill="#4CAF50" d="M24 44c5.2 0 10-2 13.6-5.2l-6.3-5.3C29.2 35.1 26.7 36 24 36c-5.3 0-9.7-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/>
+            <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-1.1 3.2-3.5 5.7-6.6 7.1l6.3 5.3C37.4 38.4 44 34 44 24c0-1.2-.1-2.3-.4-3.5z"/>
+          </svg>
+          Continuer avec Google
+        </button>
+        <p id="auth-or" class="auth-or" hidden>ou</p>
+        <label class="field" id="auth-name-field" hidden>
+          <span class="kicker">Nom</span>
+          <input id="auth-name" name="name" autocomplete="name" maxlength="60">
+        </label>
+        <label class="field">
+          <span class="kicker">E-mail</span>
+          <input id="auth-email" name="email" type="email" autocomplete="username" required maxlength="254">
+        </label>
+        <label class="field">
+          <span class="kicker">Mot de passe</span>
+          <input id="auth-password" name="password" type="password" autocomplete="current-password" required minlength="8" maxlength="128">
+        </label>
+        <p id="auth-error" class="status is-error" role="alert"></p>
+        <button type="submit" class="btn block" id="auth-submit">Se connecter</button>
+        <button type="button" class="text-btn" id="auth-switch">Créer un compte</button>
+      </form>
+      </div>
+    </section>
+
+    <section id="screen-sujet" hidden>
+      <div class="layout">
+        <div>
+          <p class="kicker">Production orale</p>
+          <h1>Choisissez un sujet</h1>
+          <div class="picker">
+            <div id="theme-row" class="theme-row" role="group" aria-label="Thèmes"></div>
+            <div id="sujet-list" class="sujet-list"></div>
+          </div>
+          <article id="document" class="document"></article>
+        </div>
+        <aside class="prep" id="prep">
+          <p class="kicker">Préparation</p>
+          <div class="timer">
+            <p id="prep-clock" class="clock" role="timer" aria-live="off">5:00</p>
+            <div class="timer-controls">
+              <button type="button" class="btn secondary" id="prep-start">Démarrer</button>
+              <button type="button" class="icon-btn" id="prep-reset" aria-label="Remettre le minuteur à zéro" title="Remettre à zéro" hidden>↺</button>
+            </div>
+          </div>
+          <div class="timer-bar" aria-hidden="true"><span id="prep-bar"></span></div>
+          <p id="prep-done" class="note" role="status" hidden>Temps écoulé. Vous pouvez passer à l'oral.</p>
+          <div class="notes-head">
+            <label class="kicker" for="notes">Vos notes</label>
+            <span class="notes-hint">Non évaluées</span>
+          </div>
+          <textarea id="notes" placeholder="Votre plan, vos exemples, les mots que vous voulez employer…"></textarea>
+          <button type="button" class="btn block" id="to-parler">Passer à l'oral →</button>
+          <button type="button" class="text-btn" id="to-example">Voir un exemple de retour</button>
+        </aside>
+      </div>
+    </section>
+
+    <section id="screen-parler" hidden>
+      <div class="parler-layout">
+      <div class="parler">
+        <p id="turn-kicker" class="kicker">Monologue</p>
+        <p id="turn-done" class="done" hidden>Monologue enregistré.</p>
+        <h1 id="turn-question"></h1>
+        <p id="clock" class="clock">0:00</p>
+        <p id="turn-hint" class="hint">2 minutes · arrêt automatique à 1:55</p>
+        <p id="warn" class="warn" hidden>Il vous reste moins de quinze secondes.</p>
+        <div id="meter" class="meter" aria-hidden="true"></div>
+        <button type="button" id="record" class="record" data-state="ready">
+          <span id="record-glyph" class="glyph"></span>
+        </button>
+        <div id="parler-orb" class="parler-orb" hidden></div>
+        <p id="record-label">Enregistrer</p>
+        <p id="parler-status" class="status"></p>
+        <div id="parler-actions" class="actions"></div>
+      </div>
+      <aside id="parler-notes" class="parler-notes" aria-labelledby="parler-notes-title" hidden>
+        <p class="kicker" id="parler-notes-title">Vos notes</p>
+        <div id="parler-notes-text" class="parler-notes-text"></div>
+      </aside>
+      </div>
+    </section>
+
+    <section id="screen-historique" hidden>
+      <p class="kicker">Historique</p>
+      <h1>Vos oraux</h1>
+      <div id="historique-list" class="history-list"></div>
+    </section>
+
+    <section id="screen-compte" hidden>
+      <div class="compte" id="compte-root"></div>
+    </section>
+
+    <section id="screen-retour" hidden>
+      <div id="retour-root"></div>
+    </section>
+  </main>
+  <script type="module" src="/silk.js"></script>
+  <script type="module" src="/settings.js"></script>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

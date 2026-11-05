@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Connexion Google · À voix haute</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <canvas id="silk" class="silk" aria-hidden="true"></canvas>
+  <main>
+    <section id="screen-login">
+      <div class="auth-card">
+        <p class="auth-brand">À voix haute</p>
+        <p class="kicker">Pratique de l'oral</p>
+        <h1>Connexion Google</h1>
+        <p id="lead" class="hint">Choisissez le compte à utiliser, puis revenez à l'application.</p>
+        <div id="google-slot" class="google-slot"></div>
+        <p id="auth-error" class="status is-error" role="alert"></p>
+      </div>
+    </section>
+  </main>
+  <script type="module" src="/silk.js"></script>
+  <script type="module">
+    const error = document.getElementById('auth-error');
+    const lead = document.getElementById('lead');
+    const slot = document.getElementById('google-slot');
+    const state = new URLSearchParams(location.search).get('state') || '';
+
+    const fail = (message) => {
+      error.textContent = message;
+    };
+
+    const loadGis = () => new Promise((resolve, reject) => {
+      if (window.google?.accounts?.id) {
+        resolve();
+        return;
+      }
+      const script = document.createElement('script');
+      script.src = 'https://accounts.google.com/gsi/client?hl=fr';
+      script.async = true;
+      script.onload = () => resolve();
+      script.onerror = () => reject(new Error('gis'));
+      document.head.append(script);
+    });
+
+    const finish = async (credential) => {
+      error.textContent = '';
+      const res = await fetch('/api/auth/google/browser', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ credential, state }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        fail(data.error || 'La connexion Google a échoué.');
+        return;
+      }
+      lead.textContent = 'Connexion réussie. Revenez à À voix haute.';
+      slot.hidden = true;
+    };
+
+    try {
+      if (!state) throw new Error('state');
+      const config = await fetch('/api/auth/config').then((res) => res.json());
+      if (!config.googleClientId) throw new Error('config');
+      await loadGis();
+      google.accounts.id.initialize({
+        client_id: config.googleClientId,
+        callback: (response) => { void finish(response?.credential); },
+        auto_select: false,
+        cancel_on_tap_outside: true,
+      });
+      google.accounts.id.renderButton(slot, {
+        type: 'standard',
+        theme: 'filled_black',
+        size: 'large',
+        text: 'continue_with',
+        shape: 'rectangular',
+        logo_alignment: 'left',
+        width: Math.round(Math.min(400, Math.max(240, slot.clientWidth || 320))),
+        locale: 'fr',
+      });
+    } catch {
+      fail('La connexion Google a échoué. Revenez à l\'application et réessayez.');
+    }
+  </script>
+</body>
+</html>
